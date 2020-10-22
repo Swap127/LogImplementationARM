@@ -7,11 +7,11 @@ __main  FUNCTION
 	 ;I have analyzed the taylor series equation and reduced it to summation from 1 to n: out = [out - (((-(1-x))^n)/n)]  
 	 
 	 VMOV.F32 s0, #1.5                ;s0 stores the value (i.e 1.5),which is the number whose ln is being calculated
-	 VMOV.F32 s1, #5                  ;s1 stores the value of the number of terms upto which the sum will be calculated
+	 VMOV.F32 s1, #5                  ;s1 stores the value of the number of terms upto which the sum will be calculated(or infinite terms can also be used by putting 0x7f800000 in s1)
 	 VMOV.F32 s2, #1                  ;storing the value 1(constant) in s2
 
 	 VSUB.F32 s3, s0, s2              ;Extracting the value i.e. 0.5 by subtracting 1
-	 
+	                                  
 	 LDR r1, =0x00000000; 
    	 VMOV.F32 s4, r1            	  ;Loading the initial value with 0 as shown in class, as directly moving 0 like other values does not work  
 									  ;In s4 the accumulation will be done by adding the terms after every loop
@@ -36,6 +36,8 @@ stopProgram    B stopProgram          ; to stop the program
 	 	 
      ENDFUNC
      END
-                                      ;for checking the program the value for any value just store the number in s0 and the number of
+                                      
+				      ;for checking the program the value for any value just store the number in s0 and the number of
                                       ;summation terms in s1 in the starting and at the end of the program the final value can be observed
                                       ;in s10									  
+				      ;I was trying to use instructions like VFNMS, VFNMA,VFMS,VFMA,etc, but they were not required for my logic to work 
